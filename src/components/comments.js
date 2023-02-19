@@ -24,7 +24,7 @@ export const Comments = () => {
       <div className="flex flex-col gap-6 pt-6 justify-center items-center">
         <form className="flex gap-1" onSubmit={submitComment}>
           <input
-            className="py-2 text-black"
+            className="p-2 text-black"
             value={comment}
             onChange={commentChange}
           />
@@ -34,15 +34,19 @@ export const Comments = () => {
         </form>
         {comments.map((comment, id) => {
           return (
-            <div
-              key={id}
-              className="border-2 border-white p-4 flex flex-col w-10/12"
-            >
-              <div className="flex justify-between">
-                <span>@{comment.username}</span>
-                <span>2hrs ago</span>
+            <div key={id} className="border-2 border-white p-4 flex  w-10/12">
+              <div className="flex flex-col w-full">
+                <div className="flex justify-between">
+                  <span>@{comment.username}</span>
+                  <span>2hrs ago</span>
+                </div>
+                <span>{comment.content}</span>
               </div>
-              <span>{comment.content}</span>
+              <div className="w-fit p-1">
+                <button className=" uppercase shadow bg-red-600 hover:bg-red-500 focus:shadow-outline focus:outline-none text-white  py-2 px-3 rounded">
+                  Remove
+                </button>
+              </div>
             </div>
           );
         })}

@@ -47,7 +47,7 @@ export const Login = () => {
           </div>
 
           <button className=" uppercase shadow bg-slate-600 hover:bg-slate-500 focus:shadow-outline focus:outline-none text-white  py-3 px-8 rounded">
-            Log in{" "}
+            Log in
           </button>
         </form>
       </div>
