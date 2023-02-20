@@ -1,6 +1,9 @@
 import { Nav } from "./nav";
 import { blogs } from "./blogs";
+import { useEffect, useState } from "react";
 export const Home = () => {
+  const [blogs, setBlogs] = useState(null);
+  useEffect(() => {}, []);
   return (
     <div className="h-screen">
       <Nav />
