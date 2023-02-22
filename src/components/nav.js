@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export const Nav = () => {
   const navigate = useNavigate();
   const logout = () => {
-    fetch("http://localhost:5000/logout", {
+    fetch("https://blog-api-production-9f47.up.railway.app/logout", {
       method: "POST",
       mode: "cors",
       credentials: "include",

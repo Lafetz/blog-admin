@@ -18,7 +18,7 @@ export const Login = () => {
       username: username,
       password: password,
     };
-    fetch("http://localhost:5000/loginAdmin", {
+    fetch("https://blog-api-production-9f47.up.railway.app/loginAdmin", {
       method: "POST",
       credentials: "include",
       mode: "cors",

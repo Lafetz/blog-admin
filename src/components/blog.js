@@ -11,7 +11,7 @@ export const Blog = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/user", {
+    fetch("https://blog-api-production-9f47.up.railway.app/user", {
       mode: "cors",
       credentials: "include",
     }).then((res) => {
@@ -26,7 +26,7 @@ export const Blog = () => {
     });
   }, [navigate]);
   useEffect(() => {
-    fetch(`http://localhost:5000/blogs/${id}`, {
+    fetch(`https://blog-api-production-9f47.up.railway.app/blogs/${id}`, {
       mode: "cors",
       credentials: "include",
     })
@@ -41,10 +41,13 @@ export const Blog = () => {
       });
   }, [id]);
   useEffect(() => {
-    fetch(`http://localhost:5000/blogs/${id}/comments`, {
-      mode: "cors",
-      credentials: "include",
-    })
+    fetch(
+      `https://blog-api-production-9f47.up.railway.app/blogs/${id}/comments`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
       .then((res) => {
         if (!res.ok) {
         } else {

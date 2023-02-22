@@ -7,7 +7,7 @@ export const Post = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/user", {
+    fetch("https://blog-api-production-9f47.up.railway.app/user", {
       mode: "cors",
       credentials: "include",
     }).then((res) => {
@@ -33,7 +33,7 @@ export const Post = () => {
       title: title,
       content: content,
     };
-    fetch(`http://localhost:5000/blogs`, {
+    fetch(`https://blog-api-production-9f47.up.railway.app/blogs`, {
       method: "POST",
       credentials: "include",
       mode: "cors",
