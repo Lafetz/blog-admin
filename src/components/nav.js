@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export const Nav = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    fetch("http://localhost:5000/logout", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+    }).then((res) => {
+      if (res.status === 200) {
+        navigate("/login");
+      }
+    });
+  };
   return (
     <div className="m-auto py-3 text-white bg-slate-700">
       <div className=" max-w-screen-lg m-auto flex justify-around items-center h-16">
@@ -13,7 +25,10 @@ export const Nav = () => {
           </button>
         </Link>
 
-        <button className=" uppercase shadow bg-red-800 hover:bg-red-700 focus:shadow-outline focus:outline-none text-white  py-3 px-4 rounded">
+        <button
+          onClick={logout}
+          className=" uppercase shadow bg-red-800 hover:bg-red-700 focus:shadow-outline focus:outline-none text-white  py-3 px-4 rounded"
+        >
           logout
         </button>
       </div>

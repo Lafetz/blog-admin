@@ -1,22 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const Comments = () => {
-  const comments = [
-    { username: "hero", content: "nice tshag aghdg" },
-    { username: "hero", content: "nice tshag aghdg" },
-    { username: "hero", content: "nice tshag aghdg" },
-  ];
+export const Comments = ({ id, comments, user }) => {
+  useEffect(() => {}, []);
   const [comment, setComment] = useState("");
   const commentChange = (e) => {
     setComment(e.target.value);
   };
   const submitComment = (e) => {
     e.preventDefault();
-    comments.push({
-      username: "me",
+    const commentData = {
+      username: user.username, //
+      blogID: id,
       content: comment,
-    });
-    setComment("");
+    };
+    fetch(`http://localhost:5000/blogs/${id}/comments`, {
+      method: "POST",
+      credentials: "include",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          console.log(res);
+        } else setComment("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const removeComment = (commentId) => {
+    fetch(`http://localhost:5000/blogs/${id}/comments/${commentId}`, {
+      mode: "cors",
+      method: "DELETE",
+      credentials: "include",
+    }).then((res) => {});
   };
   return (
     <div className="py-6">
@@ -32,24 +53,33 @@ export const Comments = () => {
             Add
           </button>
         </form>
-        {comments.map((comment, id) => {
-          return (
-            <div key={id} className="border-2 border-white p-4 flex  w-10/12">
-              <div className="flex flex-col w-full">
-                <div className="flex justify-between">
-                  <span>@{comment.username}</span>
-                  <span>2hrs ago</span>
+        {comments &&
+          comments.map((comment) => {
+            return (
+              <div
+                key={comment._id}
+                className="border-2 border-white p-4 flex  w-10/12"
+              >
+                <div className="flex flex-col w-full">
+                  <div className="flex justify-between">
+                    <span>@{comment.username}</span>
+                    <span>{new Date(comment.timeStamp).toDateString()}</span>
+                  </div>
+                  <span>{comment.content}</span>
                 </div>
-                <span>{comment.content}</span>
+                <div className="w-fit p-1">
+                  <button
+                    onClick={() => {
+                      removeComment(comment._id);
+                    }}
+                    className=" uppercase shadow bg-red-600 hover:bg-red-500 focus:shadow-outline focus:outline-none text-white  py-2 px-3 rounded"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-              <div className="w-fit p-1">
-                <button className=" uppercase shadow bg-red-600 hover:bg-red-500 focus:shadow-outline focus:outline-none text-white  py-2 px-3 rounded">
-                  Remove
-                </button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
